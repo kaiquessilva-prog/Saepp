@@ -1,0 +1,7 @@
+id_usuario,nome,nome_usuario,email,senha,imagem_usuario,tipo,created_at,updated_at
+1,fotografo1,fotografo_1,fotografo1@email.com,123456,fotografo1.jpg,fotografo,2025-03-25 12:40:08,2025-03-25 12:40:08
+2,fotografo2,fotografo_2,fotografo2@gmail.com,123456,fotografo2.jpg,fotografo,2025-03-25 12:42:56,2025-03-25 12:42:56
+3,fotografo3,fotografo_3,fotografo3@gmail.com,123456,fotografo3.jpg,fotografo,2025-03-25 12:45:44,2025-03-25 12:45:44
+4,usuario1,usuario_1,usuario1@gmail.com,123456,usuario1.jpg,usuario,2025-03-25 12:48:32,2025-03-25 12:48:32
+5,usuario2,usuario_2,usuario2@gmail.com,123456,usuario2.jpg,usuario,2025-03-25 12:51:20,2025-03-25 12:51:20
+6,usuario3,usuario_3,usuario3@gmail.com,123456,usuario3.jpg,usuario,2025-03-25 12:54:08,2025-03-25 12:54:08

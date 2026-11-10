@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#FFFFFF">
+  <title>SAEPVision | Galeria</title>
+  <link rel="stylesheet" href="assets/css/style.css?v=20261110-4">
+  <script type="module" src="assets/js/app.js?v=20261110-4"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-user">
+      <img id="profile-avatar" class="avatar" src="backend/api/media.php?tipo=avatar&amp;arquivo=saepVision.jpeg" alt="SAEPVision">
+      <div class="header-user-copy">
+        <span id="profile-name" class="profile-name">@SAEPVision</span>
+        <button id="profile-button" class="profile-button is-disabled" type="button" aria-disabled="true">
+          <span id="profile-open-label">Ver Perfil</span>
+        </button>
+      </div>
+    </div>
+    <a class="wordmark" href="index.html" aria-label="SAEPVision, início">SAEP<span>Vision</span></a>
+    <div class="header-actions">
+      <button id="login-button" class="button button-dark" type="button">Login</button>
+      <button id="logout-button" class="button button-dark" type="button" hidden>Logout</button>
+    </div>
+  </header>
+
+  <main class="page-content">
+    <section class="gallery-heading" aria-labelledby="gallery-title">
+      <div class="heading-copy">
+        <p class="eyebrow">Galeria colaborativa</p>
+        <h1 id="gallery-title">Olhares em foco<span>.</span></h1>
+      </div>
+      <form id="search-form" class="search-form" novalidate>
+        <label class="visually-hidden" for="photographer-search">Buscar fotógrafo</label>
+        <input id="photographer-search" name="fotografo" type="search" autocomplete="off" placeholder="Digite o nome do fotógrafo... ex: @fotografo1">
+        <button class="search-submit" type="submit" aria-label="Buscar fotógrafo" title="Buscar">
+          <img src="assets/icons/lupa.svg" alt="">
+        </button>
+        <p id="search-error" class="field-error" role="alert" hidden></p>
+      </form>
+    </section>
+
+    <p id="status-message" class="status-message" role="status" aria-live="polite"></p>
+    <section id="gallery" class="gallery-grid" aria-label="Publicações" aria-live="polite" aria-busy="true"></section>
+  </main>
+
+  <div id="panel-backdrop" class="panel-backdrop" hidden></div>
+  <aside id="profile-panel" class="profile-panel" aria-label="Painel do fotógrafo" hidden>
+    <button id="close-profile" class="icon-button panel-close" type="button" aria-label="Fechar painel" title="Fechar">
+      <img src="assets/icons/close.svg" alt="">
+    </button>
+    <p class="eyebrow">Área do fotógrafo</p>
+    <div class="profile-stats">
+      <div><strong id="likes-total">0</strong><span>Likes</span></div>
+      <div><strong id="publications-total">0</strong><span>Publicações</span></div>
+    </div>
+    <button id="own-publications" class="own-publications" type="button" aria-pressed="false">Suas publicações</button>
+    <section id="upload-section" class="upload-section" hidden>
+      <h2>Nova fotografia</h2>
+      <form id="upload-form" class="upload-form" enctype="multipart/form-data" novalidate>
+        <label for="image-title">Título da Imagem</label>
+        <input id="image-title" name="titulo" type="text" maxlength="180" placeholder="entrada de texto livre. ex.: Dedo de Deus" aria-describedby="title-error" required>
+        <p id="title-error" class="field-error" role="alert"></p>
+        <label for="image-origin">Fonte de origem</label>
+        <input id="image-origin" name="local_origem" type="text" maxlength="180" placeholder="entrada de texto livre. ex.: Rio de Janeiro" aria-describedby="origin-error" required>
+        <p id="origin-error" class="field-error" role="alert"></p>
+        <label for="image-file">Imagem</label>
+        <div class="file-picker">
+          <label class="button button-outline" for="image-file">Escolher arquivo</label>
+          <span id="file-name" class="file-name">Nenhum arquivo escolhido</span>
+        </div>
+        <input id="image-file" class="visually-hidden" name="imagem" type="file" accept=".jpg,.jpeg,.png,.gif,.webp,image/jpeg,image/png,image/gif,image/webp">
+        <p id="file-error" class="field-error" role="alert"></p>
+        <p id="upload-error" class="field-error" role="alert"></p>
+        <button class="button button-dark upload-submit" type="submit">Cadastrar</button>
+      </form>
+    </section>
+  </aside>
+
+  <div id="login-modal" class="modal-backdrop" role="presentation" hidden>
+    <section class="login-dialog" role="dialog" aria-modal="true" aria-labelledby="login-title">
+      <div class="login-visual" aria-hidden="true">
+        <img src="backend/api/media.php?tipo=foto&amp;arquivo=foto2.jpg" alt="">
+        <div class="login-visual-caption"><span>SAEPVision</span><strong>Imagens que guardam lugares.</strong></div>
+      </div>
+      <div class="login-content">
+        <button class="icon-button modal-close" type="button" data-close-login aria-label="Fechar" title="Fechar">
+          <img src="assets/icons/close.svg" alt="">
+        </button>
+        <section id="login-view" class="auth-view">
+          <p class="eyebrow">Acesso à comunidade</p>
+          <h2 id="login-title">Entre na sua conta</h2>
+          <p class="login-description">Acesse sua galeria e compartilhe novos registros.</p>
+          <form id="login-form" novalidate>
+            <label for="login-email">E-mail</label>
+            <input id="login-email" name="email" type="email" autocomplete="username" placeholder="Digite seu e-mail" required>
+            <label for="login-password">Senha</label>
+            <input id="login-password" name="senha" type="password" autocomplete="current-password" placeholder="Digite sua senha" required>
+            <p id="login-error" class="field-error" role="alert" hidden></p>
+            <div class="dialog-actions">
+              <button class="button button-outline" type="button" data-close-login>Cancelar</button>
+              <button class="button button-dark" type="submit">Login</button>
+            </div>
+          </form>
+          <p class="auth-switchline">Ainda não tem conta? <button type="button" data-show-register>Criar conta</button></p>
+        </section>
+        <section id="register-view" class="auth-view" aria-labelledby="register-title" hidden>
+          <p class="eyebrow">Cadastro de conta</p>
+          <h2 id="register-title">Crie seu acesso</h2>
+          <p class="login-description">Faça parte da comunidade SAEPVision.</p>
+          <form id="register-form" novalidate>
+            <label for="register-name">Nome completo</label>
+            <input id="register-name" name="nome" type="text" autocomplete="name" maxlength="120" placeholder="Digite seu nome" required>
+            <label for="register-username">Nome de usuário</label>
+            <input id="register-username" name="nome_usuario" type="text" autocomplete="username" maxlength="40" placeholder="ex.: maria_fotografa" required>
+            <label for="register-email">E-mail</label>
+            <input id="register-email" name="email" type="email" autocomplete="email" maxlength="190" placeholder="Digite seu e-mail" required>
+            <label for="register-password">Senha</label>
+            <input id="register-password" name="senha" type="password" autocomplete="new-password" minlength="8" placeholder="Crie uma senha (mínimo 8 caracteres)" required>
+            <label for="register-type">Tipo de conta</label>
+            <select id="register-type" name="tipo_usuario" required>
+              <option value="comum">Comum</option>
+              <option value="fotografo">Fotógrafo</option>
+            </select>
+            <p id="register-error" class="field-error" role="alert" hidden></p>
+            <div class="dialog-actions">
+              <button class="button button-outline" type="button" data-show-login>Voltar ao login</button>
+              <button class="button button-dark" type="submit">Criar conta</button>
+            </div>
+          </form>
+        </section>
+      </div>
+    </section>
+  </div>
+
+  <footer class="site-footer">
+    <a class="footer-brand" href="index.html">SAEPVision</a>
+    <nav class="social-links" aria-label="Redes sociais">
+      <a href="https://www.instagram.com/" aria-label="Instagram"><img src="assets/icons/instagram.svg" alt=""></a>
+      <a href="https://www.tiktok.com/" aria-label="TikTok"><img src="assets/icons/tiktok.svg" alt=""></a>
+      <a href="https://www.linkedin.com/" aria-label="LinkedIn"><img src="assets/icons/linkedin.svg" alt=""></a>
+      <a href="https://www.youtube.com/" aria-label="YouTube"><img src="assets/icons/youtube.svg" alt=""></a>
+    </nav>
+    <p class="copyright">© 2026-2027 Kaique</p>
+  </footer>
+</body>
+</html>
